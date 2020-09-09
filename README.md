@@ -1,44 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+	<img alt="Logo" src="https://user-images.githubusercontent.com/45200253/92550768-b3613400-f232-11ea-82b4-504168c50ce6.png" width="300px" height="150" />
+</h1>
 
-## Available Scripts
+<h3 align="center">
+  #VemProFut
+</h3>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="#-sobre-o-projeto">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-utilizar">Como utilizar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<!--   <a href="#-license">License</a> -->
+</p>
 
-### `yarn start`
+## 👨🏻‍💻 Sobre o projeto
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- <p style="color: red;">O projeto consiste em uma aplicação básica para jogadores amadores de peladas, onde é possível o usuário cadastrar jogadores que farão parte da pelada agendada, e então, o sistema sorteia os devidos times e confrontos com a finalidade de não perder tempo nos sorteios que geralmentes são feitos na hora pelos jogadores. </p>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 🚀 Tecnologias
 
-### `yarn test`
+- [ReactJS](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Router DOM](https://reacttraining.com/react-router/)
+- [React Icons](https://react-icons.netlify.com/#/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Yup](https://github.com/jquense/yup)
+- [Styled Components](https://styled-components.com/)
+- [Axios](https://github.com/axios/axios)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [EditorConfig](https://editorconfig.org/)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 💻 Como utilizar
 
-### `yarn build`
+**Clone the project and access the folder**
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+$ git clone https://github.com/PedroGomes1/vemprofut.git && cd vemprofut
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Instale todas as dependências**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+$ yarn
 
-### `yarn eject`
+# Inicie a aplicação
+$ yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feito por Pedro Gomes 👋 [Meu Linkedin](https://www.linkedin.com/in/pedro-henrique-gomes-barbosa-667766178/)
