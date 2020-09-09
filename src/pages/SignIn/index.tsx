@@ -1,8 +1,10 @@
 import React from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import { Container, Content, Bacgkround, AnimationContainer } from './styles';
 import signInBackgroundImg from '../../assets/background-signin.svg';
 import logo from '../../assets/logofut.png';
@@ -10,8 +12,11 @@ import logo from '../../assets/logofut.png';
 const SignIn: React.FC = () => {
   const { register, handleSubmit } = useForm();
 
+  const history = useHistory();
+
   const onSubmit = (data: any) => {
     console.log(data);
+    history.push('/home');
   };
 
   return (
@@ -38,7 +43,7 @@ const SignIn: React.FC = () => {
               register={register}
               required
             />
-            <button type="submit">Entrar</button>
+            <Button type="submit">Entrar</Button>
           </form>
 
           <Link to="/signup">

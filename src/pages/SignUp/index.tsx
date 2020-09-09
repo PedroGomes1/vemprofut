@@ -1,9 +1,12 @@
 import React from 'react';
-import { FiMail, FiLock, FiUser, FiArrowDownLeft } from 'react-icons/fi';
+import {
+ FiMail, FiLock, FiUser, FiArrowDownLeft
+} from 'react-icons/fi';
 import { FcCheckmark } from 'react-icons/fc';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import {
   Container,
   Content,
@@ -77,7 +80,7 @@ const SignUp: React.FC = () => {
               register={register}
               required
             />
-            <button type="submit">Finalizar cadastro</button>
+            <Button type="submit">Finalizar cadastro</Button>
           </form>
 
           <Link to="/">

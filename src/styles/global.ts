@@ -34,8 +34,6 @@ export default createGlobalStyle`
 
   #root {
     width: 100%;
-    /* max-width: 128rem; */
-    /* padding: 0 3rem; */
   }
 
   body, input, button {
