@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 export const Container = styled.div`
   height: 100vh;
   display: flex;
-  align-items: stretch;
+  flex: 1;
 `;
 
 const appearFromLeft = keyframes`
@@ -17,24 +17,13 @@ to {
 }
 `;
 
-const imageBackground = keyframes`
-from {
-  opacity: 0;
-  transform: translateX(7rem);
-}
-to {
-  opacity: 1;
-  transform: translateX(0);
-}
-`;
-
 export const AnimationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  animation: ${appearFromLeft} 1.5s;
+  animation: ${appearFromLeft} 1s;
 
   form {
     width: 100%;
@@ -67,15 +56,19 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 45%;
+
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `;
 
 export const Bacgkround = styled.div`
-  width: 100%;
   display: flex;
+  flex: 1;
   align-items: center;
 
-  animation: ${imageBackground} 1.5s;
+  animation: ${appearFromLeft} 1s;
 
   img {
     width: 100%;
