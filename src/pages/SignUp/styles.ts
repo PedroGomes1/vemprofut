@@ -5,8 +5,6 @@ export const Container = styled.div`
 
   display: flex;
 
-  align-items: stretch;
-
   @media (max-width: 535px) {
     display: flex;
     flex-direction: column;
@@ -20,10 +18,7 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 100%;
-  max-width: 50rem;
-
+  margin: 0 auto;
   padding: 0 2rem;
 
   h1 {
@@ -49,7 +44,7 @@ from {
 }
 to {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0rem);
 }
 `;
 
@@ -101,6 +96,8 @@ export const Info = styled.div`
   display: flex;
   align-items: center;
 
+  width: 70%;
+
   animation: ${appearFromLeft} 1s;
 `;
 
@@ -133,12 +130,6 @@ export const Items = styled.div`
 `;
 
 export const Bacgkround = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
   @media (max-width: 1210px) {
     display: none;
   }

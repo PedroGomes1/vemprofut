@@ -1,7 +1,5 @@
 import React from 'react';
-import {
- FiMail, FiLock, FiUser, FiArrowDownLeft
-} from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiArrowDownLeft } from 'react-icons/fi';
 import { FcCheckmark } from 'react-icons/fc';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
