@@ -10,10 +10,10 @@ const Header: React.FC = () => (
       <img src={logo} alt="logo" />
     </Link>
 
-    <button type="button">
+    <Link to="/">
       <CgLogOut size="20" color="#312e38" />
       Sair
-    </button>
+    </Link>
   </Container>
 );
 

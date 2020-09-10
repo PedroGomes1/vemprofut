@@ -13,7 +13,10 @@ export const Container = styled.div`
     padding: 2rem 0;
   }
 
-  button {
+  a + a {
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.quaternary};
     svg {
       margin-right: 0.5rem;
     }
