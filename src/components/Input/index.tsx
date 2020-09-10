@@ -18,21 +18,26 @@ type RefReturn =
   | null
   | undefined;
 
-interface IInputProps {
-  label: string;
-}
-
 const Input: React.FC<InputProps> = ({
   type,
   register,
   name,
   icon: Icon,
   required,
+  placeholder,
   ...rest
 }) => (
-  <Container>
+  <Container hasPlaceholder={placeholder}>
     {Icon && <Icon size={25} />}
-    <input type={type} name={name} ref={register({ required })} {...rest} />
+    <input
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      ref={register({ required })}
+      {...rest}
+    />
+
+    <label htmlFor="">{placeholder}</label>
   </Container>
 );
 

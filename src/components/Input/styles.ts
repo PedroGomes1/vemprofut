@@ -1,24 +1,70 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface IContainerProps {
+  hasPlaceholder: string | undefined;
+}
+
+export const Container = styled.div<IContainerProps>`
   width: 100%;
-  padding: 1.8rem;
   margin-bottom: 2rem;
   border-radius: 1rem;
   display: flex;
+  align-items: center;
+
+  height: 6rem;
+
+  position: relative;
 
   border: 0.17rem solid ${({ theme }) => theme.colors.secondary};
 
+  label {
+    position: absolute;
+    left: 5.5rem;
+    top: 1.8rem;
+    transition: 0.3s;
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+
   input {
-    width: 100%;
     border: 0;
     background: none;
-
+    height: 60%;
+    position: absolute;
+    width: 80%;
+    left: 5rem;
+    z-index: 2;
     color: ${({ theme }) => theme.colors.quaternary};
+
+    &:focus + label {
+      background: ${({ theme }) => theme.colors.background};
+      color: ${({ theme }) => theme.colors.secondary};
+      top: -1rem;
+      left: 3rem;
+    }
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:not(:placeholder-shown):not(:focus) + label {
+      background: ${({ theme }) => theme.colors.background};
+      color: ${({ theme }) => theme.colors.secondary};
+      top: -1rem;
+      left: 3rem;
+    }
+
+    /* only for inputs that have no placeholder */
+    ${({ hasPlaceholder }) =>
+      !hasPlaceholder &&
+      css`
+        width: 95%;
+        left: 2rem;
+      `}
   }
 
   svg {
-    margin-right: 16px;
+    margin: 0 16px;
     color: ${({ theme }) => theme.colors.secondary};
   }
 `;
