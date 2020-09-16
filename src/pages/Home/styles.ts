@@ -12,13 +12,12 @@ export const Container = styled.div`
 `;
 export const Table = styled.table`
   width: 50%;
-
   border-collapse: collapse;
   td,
   th {
     text-align: center;
     padding: 1rem;
-    border: 1px solid black;
+    border: 1px solid ${({ theme }) => theme.colors.quaternary};
   }
 `;
 export const WrapperForm = styled.div`

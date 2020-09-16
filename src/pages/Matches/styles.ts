@@ -18,7 +18,7 @@ export const Table = styled.table`
   th {
     text-align: center;
     padding: 1rem;
-    border: 1px solid black;
+    border: 1px solid ${({ theme }) => theme.colors.quaternary};
   }
 `;
 export const WrapperList = styled.div`

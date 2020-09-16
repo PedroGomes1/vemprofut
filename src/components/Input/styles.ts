@@ -22,7 +22,7 @@ export const Container = styled.div<IContainerProps>`
     left: 5.5rem;
     top: 1.8rem;
     transition: 0.3s;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: ${({ theme }) => theme.colors.secondary};
   }
 
@@ -41,6 +41,7 @@ export const Container = styled.div<IContainerProps>`
       color: ${({ theme }) => theme.colors.secondary};
       top: -1rem;
       left: 3rem;
+      font-size: 1.4rem;
     }
 
     &::placeholder {
@@ -52,6 +53,7 @@ export const Container = styled.div<IContainerProps>`
       color: ${({ theme }) => theme.colors.secondary};
       top: -1rem;
       left: 3rem;
+      font-size: 1.4rem;
     }
 
     /* only for inputs that have no placeholder */
@@ -64,7 +66,7 @@ export const Container = styled.div<IContainerProps>`
   }
 
   svg {
-    margin: 0 16px;
+    margin: 0 1.6rem;
     color: ${({ theme }) => theme.colors.secondary};
   }
 `;

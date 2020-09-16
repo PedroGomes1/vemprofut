@@ -17,14 +17,14 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   position: relative;
-  background: #fff;
-  border-radius: 8px;
-  width: 600px;
+  background: ${({ theme }) => theme.colors.background};
+  border-radius: 0.8rem;
+  width: 60rem;
   transition: 400ms;
-  padding: 20px;
+  padding: 2rem;
 
   @media (max-width: 900px) {
-    width: 400px;
+    width: 40rem;
   }
 
   h2 {
@@ -38,13 +38,20 @@ export const Card = styled.div`
       margin-right: 1rem;
     }
   }
+
+  form {
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
 `;
 
 export const Icon = styled(MdClose)`
   position: absolute;
   height: 30px;
   width: 30px;
-  color: #000000;
+  color: ${({ theme }) => theme.colors.quaternary};
   right: 2rem;
   top: 0.8rem;
   cursor: pointer;
