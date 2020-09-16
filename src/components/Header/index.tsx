@@ -1,20 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CgLogOut } from 'react-icons/cg';
-import { Container } from './styles';
+import Switch from '../SwitchTheme';
+import { Container, Options } from './styles';
 import logo from '../../assets/logofut-header.png';
 
-const Header: React.FC = () => (
-  <Container>
-    <Link to="/home">
-      <img src={logo} alt="logo" />
-    </Link>
+const Header: React.FC = () => {
+  return (
+    <Container>
+      <Link to="/home">
+        <img src={logo} alt="logo" />
+      </Link>
 
-    <Link to="/">
-      <CgLogOut size="20" color="#312e38" />
-      Sair
-    </Link>
-  </Container>
-);
+      <Switch />
+      <Options>
+        <Link to="/">
+          <CgLogOut size="20" />
+          Sair
+        </Link>
+      </Options>
+    </Container>
+  );
+};
 
 export default Header;

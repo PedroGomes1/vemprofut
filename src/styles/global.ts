@@ -11,7 +11,6 @@ export default createGlobalStyle`
 
   html {
     font-size: 62.5%;
-    height: 100%;
 
     @media (min-width: 1981px) {
       font-size: 80%;
@@ -24,16 +23,16 @@ export default createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
   }
-
   body, #root {
     background: ${({ theme }) => theme.colors.background};
-    min-height: 100vh;
+    min-height: 100%;
     height: 100%;
   }
 
 
   #root {
     width: 100%;
+    /* filter: hue-rotate(180deg) invert(1); */
   }
 
   body, input, button {
@@ -42,7 +41,8 @@ export default createGlobalStyle`
     line-height: 1.48;
   }
 
-  h1, h2, h3, h4, h5, h6, strong {
+  h1, h2, h3, h4, h5, h6, label, table, a, strong {
+    color:${({ theme }) => theme.colors.quaternary};
     font-family: 'Poppins', sans-serif;
   }
 

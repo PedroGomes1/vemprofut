@@ -1,9 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
-
   display: flex;
+  flex-direction: column;
+
+  height: 100vh;
 
   @media (max-width: 535px) {
     display: flex;
@@ -11,6 +12,32 @@ export const Container = styled.div`
 
     padding: 2rem;
     height: 100% !important;
+  }
+
+  main {
+    display: flex;
+    height: 100%;
+  }
+
+  @media (max-width: 535px) {
+    main {
+      flex-direction: column;
+    }
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  > div {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 535px) {
+    > div {
+      padding-bottom: 2rem;
+    }
   }
 `;
 
@@ -95,7 +122,6 @@ export const AnimationContainer = styled.div`
 export const Info = styled.div`
   display: flex;
   align-items: center;
-
   width: 70%;
 
   animation: ${appearFromLeft} 1s;

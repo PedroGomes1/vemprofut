@@ -3,7 +3,23 @@ import styled, { keyframes } from 'styled-components';
 export const Container = styled.div`
   height: 100vh;
   display: flex;
-  flex: 1;
+  flex-direction: column;
+
+  main {
+    display: flex;
+    flex-direction: row;
+
+    height: 100%;
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  > div {
+    margin-top: 2rem;
+  }
 `;
 
 const appearFromLeft = keyframes`
@@ -66,12 +82,18 @@ export const Content = styled.div`
 export const Bacgkround = styled.div`
   display: flex;
   flex: 1;
-  align-items: center;
 
   animation: ${appearFromLeft} 1s;
 
   img {
     width: 100%;
+  }
+
+  svg {
+    align-items: flex-start;
+    margin: 3rem 5rem;
+
+    cursor: pointer;
   }
 
   @media (max-width: 750px) {
