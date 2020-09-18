@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 
 import { useForm } from 'react-hook-form';
-import { FiLogIn } from 'react-icons/fi';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
-import { Container, Table, WrapperForm } from './styles';
+import { Container, Table, WrapperForm, WrapperPlayersPerTeam } from './styles';
 
 interface FormDataProps {
   name: string;
@@ -23,6 +22,8 @@ interface TableDataProps extends FormDataProps {
 const Home: React.FC = () => {
   const [tableData, setTableData] = useState<TableDataProps[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [playersPerTeam, setPlayersPerTeam] = useState(0);
+  const [confirmPlayersPerTeam, setConfirmPlayersPerTeam] = useState(0);
   const { register, handleSubmit } = useForm<FormDataProps>();
 
   const addToTable = (data: FormDataProps) => {
@@ -37,6 +38,12 @@ const Home: React.FC = () => {
         actions: '❌',
       },
     ]);
+  };
+
+  const registerPlayersPerTeam = (event: FormEvent) => {
+    event.preventDefault();
+
+    setConfirmPlayersPerTeam(playersPerTeam);
   };
 
   return (
@@ -70,9 +77,32 @@ const Home: React.FC = () => {
         </Table>
 
         <WrapperForm>
+          <WrapperPlayersPerTeam playersPerTeam={confirmPlayersPerTeam}>
+            <form onSubmit={registerPlayersPerTeam}>
+              <label htmlFor="name">Quantidade de jogadores por time:</label>
+              <select
+                name="peoples-team"
+                onChange={e => setPlayersPerTeam(Number(e.target.value))}
+              >
+                <option value="">Escolher</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+              <Button type="submit">Confirmar</Button>
+            </form>
+          </WrapperPlayersPerTeam>
+
           <form onSubmit={handleSubmit(addToTable)}>
             <h2>Cadastro de jogadores </h2>
-
             <label htmlFor="name">Nome/Apelido:</label>
             <Input
               id="name"
@@ -90,6 +120,10 @@ const Home: React.FC = () => {
               register={register}
               required
             />
+            <div>
+              <input type="checkbox" name="goleiro" ref={register} />
+              <label htmlFor="goleiro">Goleiro do time</label>
+            </div>
 
             <label htmlFor="position">Posição:</label>
             <select name="position" id="position" ref={register} required>
