@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
+import { MdDeleteForever } from 'react-icons/md';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -100,6 +103,18 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      await api.delete(`/players/${id}`);
+
+      toast.success('Jogador deletado com sucesso!');
+
+      setTableData(tableData.filter(element => element.id !== id));
+    } catch (error) {
+      toast.error('Erro ao deletar jogador');
+    }
+  };
+
   return (
     <Container>
       <Header />
@@ -112,6 +127,7 @@ const Home: React.FC = () => {
               <th>Idade</th>
               <th>Time</th>
               <th>Posição</th>
+              <th>Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -121,6 +137,9 @@ const Home: React.FC = () => {
                 <td>{item.year}</td>
                 <td>{item.team.name}</td>
                 <td>{item.position}</td>
+                <td className="delete" onClick={() => handleDelete(item.id)}>
+                  <MdDeleteForever color="#ff0015" size={20} />
+                </td>
               </tr>
             ))}
           </tbody>

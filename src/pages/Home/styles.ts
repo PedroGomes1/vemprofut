@@ -25,6 +25,15 @@ export const Table = styled.table`
     padding: 1rem;
     border: 1px solid ${({ theme }) => theme.colors.quaternary};
   }
+
+  .delete {
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 `;
 export const WrapperForm = styled.div`
   display: flex;
