@@ -2,9 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { MdInfoOutline } from 'react-icons/md';
+import { toast } from 'react-toastify';
 import Input from '../Input';
 import Button from '../Button';
 import { Container, Card, Icon } from './styles';
+import api from '../../services/api';
 
 interface ModalProps {
   onClose: () => void;
@@ -15,8 +17,18 @@ const Modal: React.FC<ModalProps> = ({ onClose, open }) => {
   const history = useHistory();
   const { register, handleSubmit } = useForm();
 
-  const addToTable = (data: any) => {
-    history.push('/matches');
+  const handleSubmitMatch = async (data: any): Promise<void> => {
+    try {
+      const response = await api.post('/matches', {
+        name: data.name,
+      });
+
+      history.push('/home', {
+        match_id: response.data.id,
+      });
+    } catch (error) {
+      toast.error('Erro ao cadastrar nome da pelada');
+    }
   };
 
   return (
@@ -28,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, open }) => {
             Registrar nome da pelada
           </h2>
 
-          <form onSubmit={handleSubmit(addToTable)}>
+          <form onSubmit={handleSubmit(handleSubmitMatch)}>
             <label htmlFor="name">Digite o nome desejado:</label>
             <Input
               id="name"

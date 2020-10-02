@@ -1,49 +1,103 @@
-import React, { useState, FormEvent } from 'react';
-
+/* eslint-disable camelcase */
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
-import { Container, Table, WrapperForm, WrapperPlayersPerTeam } from './styles';
+import {
+  Container,
+  Table,
+  WrapperForm,
+  WrapperPlayersPerTeam,
+  WrapperRegisterPlayers,
+} from './styles';
+import api from '../../services/api';
 
 interface FormDataProps {
+  id: number;
   name: string;
-  age: number;
+  year: number;
+  team: {
+    id: number;
+    name: string;
+  };
   position: string;
 }
 
-interface TableDataProps extends FormDataProps {
-  active: string;
-  team: string;
-  actions: string;
+interface FormDataProps2 {
+  quantity: number;
+}
+
+interface PropsParam {
+  match_id: number;
 }
 
 const Home: React.FC = () => {
-  const [tableData, setTableData] = useState<TableDataProps[]>([]);
+  const { state } = useLocation<PropsParam>();
+
+  const [matchId] = useState(state.match_id);
+  const [tableData, setTableData] = useState<FormDataProps[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [playersPerTeam, setPlayersPerTeam] = useState(0);
+  const [updateTable, setUpdateTable] = useState(true);
+  const [goalkeeper, setIsGoalkeeper] = useState(false);
+  const [, setPlayersPerTeam] = useState(0);
+  const [visibleFormPlayers, setVisibleFormPlayers] = useState(1);
   const [confirmPlayersPerTeam, setConfirmPlayersPerTeam] = useState(0);
   const { register, handleSubmit } = useForm<FormDataProps>();
+  const {
+    register: registerQuantity,
+    handleSubmit: handleSubmitQuantity,
+  } = useForm<FormDataProps2>();
+  useEffect(() => {
+    async function loadPlayers(): Promise<void> {
+      if (updateTable === true) {
+        const response = await api.get('/players');
 
-  const addToTable = (data: FormDataProps) => {
-    setTableData([
-      ...tableData,
-      {
+        setTableData(response.data);
+        setUpdateTable(false);
+      }
+    }
+    loadPlayers();
+  }, [updateTable]);
+
+  const registerPlayersPerTeam = async (data: any): Promise<void> => {
+    const randomTeam = Math.random() * (4 - 1) + 1;
+
+    try {
+      await api.post('/players', {
         name: data.name,
-        active: '✔',
-        age: data.age,
-        team: 'Corinthians',
+        year: data.year,
         position: data.position,
-        actions: '❌',
-      },
-    ]);
+        team_id: Math.round(randomTeam),
+        matches_id: matchId,
+        // isgoalkeeper: data.isgoalkeeper,
+      });
+      setUpdateTable(true);
+
+      toast.success('Jogador cadastrado com sucesso!');
+    } catch (error) {
+      if (error.response.data.error.includes('O limite de jogadores do time')) {
+        toast.info(`${error.response.data.error}`);
+      } else {
+        toast.error('Erro ao cadastrar');
+      }
+    }
   };
 
-  const registerPlayersPerTeam = (event: FormEvent) => {
-    event.preventDefault();
+  const updateQuantityPlayers = async (data: any): Promise<void> => {
+    try {
+      await api.put('/teams', {
+        quantity: data.quantity,
+      });
 
-    setConfirmPlayersPerTeam(playersPerTeam);
+      setConfirmPlayersPerTeam(1);
+      setVisibleFormPlayers(0);
+    } catch (error) {
+      toast.error('Erro ao atualizar a quantidade por time');
+    }
   };
 
   return (
@@ -55,22 +109,18 @@ const Home: React.FC = () => {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Ativo</th>
               <th>Idade</th>
               <th>Time</th>
               <th>Posição</th>
-              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {tableData.map(item => (
-              <tr key={item.name}>
+              <tr key={item.id}>
                 <td>{item.name}</td>
-                <td>{item.active}</td>
-                <td>{item.age}</td>
-                <td>{item.team}</td>
+                <td>{item.year}</td>
+                <td>{item.team.name}</td>
                 <td>{item.position}</td>
-                <td>{item.actions}</td>
               </tr>
             ))}
           </tbody>
@@ -78,16 +128,17 @@ const Home: React.FC = () => {
 
         <WrapperForm>
           <WrapperPlayersPerTeam playersPerTeam={confirmPlayersPerTeam}>
-            <form onSubmit={registerPlayersPerTeam}>
+            <form
+              onSubmit={handleSubmitQuantity(updateQuantityPlayers)}
+              key={2}
+            >
               <label htmlFor="name">Quantidade de jogadores por time:</label>
               <select
-                name="peoples-team"
+                name="quantity"
                 onChange={e => setPlayersPerTeam(Number(e.target.value))}
+                ref={registerQuantity}
               >
                 <option value="">Escolher</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
                 <option value="6">6</option>
@@ -101,43 +152,47 @@ const Home: React.FC = () => {
             </form>
           </WrapperPlayersPerTeam>
 
-          <form onSubmit={handleSubmit(addToTable)}>
-            <h2>Cadastro de jogadores </h2>
-            <label htmlFor="name">Nome/Apelido:</label>
-            <Input
-              id="name"
-              name="name"
-              type="name"
-              register={register}
-              required
-            />
-            <label htmlFor="age">Idade:</label>
-            <Input
-              id="age"
-              name="age"
-              type="number"
-              label="Idade"
-              register={register}
-              required
-            />
-            <div>
-              <input type="checkbox" name="goleiro" ref={register} />
-              <label htmlFor="goleiro">Goleiro do time</label>
-            </div>
+          <WrapperRegisterPlayers visibleFormPlayers={visibleFormPlayers}>
+            <form onSubmit={handleSubmit(registerPlayersPerTeam)} key={1}>
+              <h2>Cadastro de jogadores </h2>
+              <label htmlFor="name">Nome/Apelido:</label>
+              <Input
+                id="name"
+                name="name"
+                type="name"
+                register={register}
+                required
+              />
+              <label htmlFor="year">Idade:</label>
+              <Input
+                id="year"
+                name="year"
+                type="number"
+                label="Idade"
+                register={register}
+                required
+              />
 
-            <label htmlFor="position">Posição:</label>
-            <select name="position" id="position" ref={register} required>
-              <option value="valor1"> Goleiro </option>
-              <option value="valor2"> Zagueiro </option>
-              <option value="valor3"> Meio de campo </option>
-              <option value="valor3"> Atacante </option>
-            </select>
+              <label htmlFor="position">Posição:</label>
+              <select
+                name="position"
+                id="position"
+                disabled={goalkeeper}
+                ref={register}
+                required
+              >
+                <option value="Goleiro"> Goleiro </option>
+                <option value="Zagueiro"> Zagueiro </option>
+                <option value="Meio de campo"> Meio de campo </option>
+                <option value="Atacante"> Atacante </option>
+              </select>
 
-            <Button type="submit">Inserir jogador</Button>
-            <Button type="button" onClick={() => setModalOpen(true)}>
-              Sortear times
-            </Button>
-          </form>
+              <Button type="submit">Inserir jogador</Button>
+              <Button type="button" onClick={() => setModalOpen(true)}>
+                Sortear times
+              </Button>
+            </form>
+          </WrapperRegisterPlayers>
         </WrapperForm>
       </main>
 

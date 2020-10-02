@@ -2,7 +2,8 @@ import React from 'react';
 import { FiMail, FiLock, FiUser, FiArrowDownLeft } from 'react-icons/fi';
 import { FcCheckmark } from 'react-icons/fc';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import SwitchTheme from '../../components/SwitchTheme';
@@ -16,8 +17,10 @@ import {
   Items,
 } from './styles';
 import image from '../../assets/soccer.png';
+import api from '../../services/api';
 
 const SignUp: React.FC = () => {
+  const history = useHistory();
   const { register, handleSubmit } = useForm();
 
   const itemsList = [
@@ -27,8 +30,21 @@ const SignUp: React.FC = () => {
     'Rapidez em montar as equipes',
   ];
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any): Promise<void> => {
+    try {
+      await api.post('/users', {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      toast.success(
+        'Sua conta foi criada com sucesso! Faça login na plataforma.',
+      );
+      history.push('/');
+    } catch (error) {
+      toast.error('Erro ao fazer seu cadastro!');
+    }
   };
 
   return (

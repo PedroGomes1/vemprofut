@@ -2,6 +2,8 @@ import React from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import { useHistory, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../hooks/auth';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {
@@ -19,9 +21,18 @@ const SignIn: React.FC = () => {
   const { register, handleSubmit } = useForm();
   const history = useHistory();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    history.push('/home');
+  const { signIn } = useAuth();
+
+  const onSubmit = async (data: any): Promise<void> => {
+    try {
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error('Erro ao fazer o login!');
+    }
   };
 
   return (
