@@ -28,6 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@VemProFut:user');
 
     if (token && user) {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -35,13 +36,14 @@ export const AuthProvider: React.FC = ({ children }) => {
   }); // No primeiro momento é nulo, por isso mando o as AuthContextData
 
   const signIn = useCallback(async ({ email, password }) => {
-    console.log('nem aqui');
     const response = await api.post('login', {
       email,
       password,
     });
 
     const { token, user } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
 
     localStorage.setItem('@VemProFut:token', token);
     localStorage.setItem('@VemProFut:user', JSON.stringify(user));
