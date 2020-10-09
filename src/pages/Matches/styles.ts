@@ -24,19 +24,26 @@ export const Table = styled.table`
 export const WrapperList = styled.div`
   display: flex;
   flex: 1;
+  flex-direction: column;
   justify-content: center;
   margin-left: 5rem;
 
   li {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
     align-items: center;
+    justify-items: center;
 
     font-size: 2.4rem;
 
-    border-bottom: 1px solid #c0c0c0;
+    height: 80px;
+    background: ${({ theme }) => theme.colors.cards};
+    border-radius: 10px;
+    padding: 10px;
 
     svg {
-      margin: 0 2rem;
+      margin: auto;
     }
   }
 
