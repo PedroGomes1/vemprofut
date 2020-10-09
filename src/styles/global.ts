@@ -42,7 +42,7 @@ export default createGlobalStyle`
     line-height: 1.48;
   }
 
-  h1, h2, h3, h4, h5, h6, label, table, a, strong {
+  h1, h2, h3, h4, h5, h6, label, table, a, i, strong {
     color:${({ theme }) => theme.colors.quaternary};
     font-family: 'Poppins', sans-serif;
   }
