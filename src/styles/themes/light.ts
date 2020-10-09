@@ -7,5 +7,6 @@ export default {
     success: '#20C05C',
     error: '#FD4F48',
     background: '#F0F0F5',
+    cards: '#ddd',
   },
 };
