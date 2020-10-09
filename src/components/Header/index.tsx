@@ -4,8 +4,11 @@ import { CgLogOut } from 'react-icons/cg';
 import Switch from '../SwitchTheme';
 import { Container, Options } from './styles';
 import logo from '../../assets/logofut-header.png';
+import { useAuth } from '../../hooks/auth';
 
 const Header: React.FC = () => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Link to="/home">
@@ -14,10 +17,10 @@ const Header: React.FC = () => {
 
       <Switch />
       <Options>
-        <Link to="/">
+        <button type="button" onClick={signOut}>
           <CgLogOut size="20" />
-          Sair
-        </Link>
+          <span>Sair</span>
+        </button>
       </Options>
     </Container>
   );
