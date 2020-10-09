@@ -3,9 +3,11 @@ import { Switch, BrowserRouter } from 'react-router-dom';
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-import Landing from '../pages/Landing';
 import Home from '../pages/Home';
+import RegisterPlayers from '../pages/RegisterPlayers';
 import Matches from '../pages/Matches';
+import ListMatches from '../pages/ListMatches';
+import RegisterTeams from '../pages/RegisterTeams';
 
 import Route from './Route';
 
@@ -14,8 +16,15 @@ const Routes: React.FC = () => (
     <Switch>
       <Route path="/" exact component={SignIn} />
       <Route path="/signup" exact component={SignUp} />
-      <Route path="/landing" exact isPrivate component={Landing} />
       <Route path="/home" exact isPrivate component={Home} />
+      <Route
+        path="/register-players"
+        exact
+        isPrivate
+        component={RegisterPlayers}
+      />
+      <Route path="/list-matches" exact isPrivate component={ListMatches} />
+      <Route path="/register-teams" exact isPrivate component={RegisterTeams} />
       <Route path="/matches" exact isPrivate component={Matches} />
     </Switch>
   </BrowserRouter>
