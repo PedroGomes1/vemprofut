@@ -30,7 +30,6 @@ const SignIn: React.FC = () => {
         password: data.password,
       });
     } catch (error) {
-      console.log(error);
       toast.error('Erro ao fazer o login!');
     }
   };
