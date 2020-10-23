@@ -23,24 +23,10 @@ export const Card = styled.div`
   transition: 400ms;
   padding: 2rem;
 
+  max-height: 800px;
+
   @media (max-width: 900px) {
     width: 40rem;
-  }
-
-  @media (max-width: 420px) {
-    width: 35rem;
-
-    h2 {
-      text-align: center;
-
-      svg {
-        display: none;
-      }
-    }
-  }
-
-  @media (max-width: 365px) {
-    width: 25rem;
   }
 
   h2 {
@@ -59,6 +45,37 @@ export const Card = styled.div`
     label {
       display: block;
       margin-bottom: 0.5rem;
+    }
+  }
+`;
+
+
+export const Table = styled.table`
+  display: block;
+
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+  border-collapse: collapse;
+
+  text-align: center;
+
+  thead, tbody, tr, td, th   {
+    width: 20%;
+  }
+
+  td,
+  th {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.quaternary};
+  }
+
+  td {
+    cursor: pointer;
+
+    &:hover {
+      background: 1px solid ${({ theme }) => theme.colors.quaternary};
     }
   }
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../hooks/auth';
 import Input from '../../components/Input';
@@ -19,7 +19,6 @@ import SwitchTheme from '../../components/SwitchTheme';
 
 const SignIn: React.FC = () => {
   const { register, handleSubmit } = useForm();
-  const history = useHistory();
 
   const { signIn } = useAuth();
 

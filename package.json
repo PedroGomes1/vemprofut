@@ -17,6 +17,7 @@
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-select": "3.1.0",
     "react-switch": "^5.0.1",
     "react-toastify": "^6.0.8",
     "styled-components": "^5.1.1",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-select": "^3.0.22",
     "@types/styled-components": "^5.1.2",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "eslint": "6.8.0",

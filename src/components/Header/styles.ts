@@ -35,7 +35,7 @@ export const Options = styled.div`
     }
 
     &:hover {
-      opacity: 0.7;
+      opacity: 0.9;
     }
   }
 `;

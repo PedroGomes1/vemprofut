@@ -41,11 +41,7 @@ const Matches: React.FC = () => {
 
   useEffect(() => {
     async function loadPlayers(): Promise<void> {
-      const response = await api.get('/players', {
-        params: {
-          match_id: matchId,
-        },
-      });
+      const response = await api.get(`players/${matchId}`);
 
       setTableData(response.data);
     }
@@ -69,10 +65,10 @@ const Matches: React.FC = () => {
           <tbody>
             {tableData.map(player => (
               <tr key={player.id}>
-                <td>{player.name}</td>
+                {/* <td>{player.name}</td>
                 <td>{player.year}</td>
                 <td>{player.team.name}</td>
-                <td>{player.position}</td>
+                <td>{player.position}</td> */}
               </tr>
             ))}
           </tbody>
