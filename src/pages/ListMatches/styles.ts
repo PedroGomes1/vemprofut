@@ -1,27 +1,41 @@
 import styled from 'styled-components';
+import fundo from '../../assets/gramado2.png';
+
+interface ContentProps {
+  hasMatches: number;
+}
+
+export const Content = styled.div<ContentProps>`
+  background-image: url(${fundo});
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: ${({ hasMatches }) => hasMatches > 3 ? '100%' : '100vh'};
+  padding: 0 3rem;
+`
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  height: 100vh;
-
   max-width: 125rem;
   margin: 0 auto;
 
+
+  padding-bottom: 1.5rem;
   li {
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 10rem;
     background: ${({ theme }) => theme.colors.cards};
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 1rem;
+    padding: 3rem;
 
     cursor: pointer;
 
-    width: 700px;
-    margin-top: 30px;
+    max-width: 70rem;
+    width: 100%;
+    margin-top: 3rem;
 
     transition: 0.3s;
 
@@ -30,18 +44,18 @@ export const Container = styled.div`
     }
 
     img {
-      height: 70px;
-      width: 70px;
+      height: 7rem;
+      width: 7rem;
     }
 
     div {
-      margin-left: 50px;
+      margin: 0 5rem;
 
       h3 {
         color: ${({ theme }) => theme.colors.quaternary};
-        font-size: 23px;
+        font-size: 2.3rem;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-bottom: 0.8rem;
       }
 
       strong {
@@ -51,6 +65,42 @@ export const Container = styled.div`
 
     svg {
       margin-left: auto;
+    }
+  }
+
+  @media(max-width: 640px) {
+    text-align: center;
+  }
+
+  @media(max-width: 450px) {
+    li {
+
+      div {
+        margin: 0 3rem;
+
+        h3 {
+        font-size: 2rem;
+       }
+      }
+    }
+  }
+
+  @media(max-width: 390px) {
+
+    h1 {
+      font-size: 2.8rem;
+    }
+
+
+    li {
+
+      div {
+        margin: 0 1rem;
+      }
+
+      img {
+        display: none;
+      }
     }
   }
 `;

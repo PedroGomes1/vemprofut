@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
-import { Container } from './styles';
+import { Container, Content } from './styles';
 import api from '../../services/api';
 
 interface MatchData {
@@ -34,33 +34,42 @@ const RegisterTeams: React.FC = () => {
 
   return (
     <>
-      <Header />
-      <Container>
-        <h1>Vizualize suas peladas cadastradas.</h1>
+      <Content hasMatches={matches.length}>
+        <Header switchVisible={false} />
+        <Container>
 
-        <ul>
-          {matches.map(match => (
-            <li
-              onClick={() =>
-                history.push('/matches', {
-                  match_id: match.id,
-                })}
-            >
-              <img
-                src="https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2018/06/Futebol-Bola-de-Futebol-PNG.png"
-                alt="Bola"
-              />
+          {matches.length > 0 ? (
+            <>
+            <h1>Vizualize suas peladas cadastradas.</h1>
+            <ul>
+              {matches.map(match => (
+                <li
+                  key={match.id}
+                  onClick={() =>
+                    history.push('/matches', {
+                      match_id: match.id,
+                    })}
+                >
+                  <img
+                    src="https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2018/06/Futebol-Bola-de-Futebol-PNG.png"
+                    alt="Bola"
+                  />
 
-              <div>
-                <h3>{match.name}</h3>
-                <strong>{match.createdAt}</strong>
-              </div>
+                  <div>
+                    <h3>{match.name}</h3>
+                    <strong>{match.createdAt}</strong>
+                  </div>
 
-              <FiChevronRight size={40} color="#000" />
-            </li>
-          ))}
-        </ul>
-      </Container>
+                  <FiChevronRight size={40} color="#000" />
+                </li>
+              ))}
+            </ul>
+           </>
+          ) : (
+              <h1>Você não tem possui pelada registrada ainda.</h1>
+          )}
+        </Container>
+      </Content>
     </>
   );
 };
