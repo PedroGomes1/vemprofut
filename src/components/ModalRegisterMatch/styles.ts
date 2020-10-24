@@ -27,6 +27,22 @@ export const Card = styled.div`
     width: 40rem;
   }
 
+  @media (max-width: 420px) {
+    width: 35rem;
+
+    h2 {
+      text-align: center;
+
+      svg {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 365px) {
+    width: 25rem;
+  }
+
   h2 {
     display: flex;
     align-items: center;

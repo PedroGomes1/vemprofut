@@ -25,6 +25,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, open }) => {
 
       history.push('/register-teams', {
         match_id: response.data.id,
+        user_id: response.data.user_id
       });
     } catch (error) {
       toast.error('Erro ao cadastrar nome da pelada');
