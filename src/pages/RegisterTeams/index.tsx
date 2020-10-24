@@ -16,6 +16,7 @@ import api from '../../services/api';
 
 export interface PropsParam {
   match_id: number;
+  user_id: number;
   allIds: Array<number>;
 }
 
@@ -35,10 +36,11 @@ const RegisterTeams: React.FC = () => {
   const { state } = useLocation<PropsParam>();
 
   const [matchId] = useState(state.match_id);
+  const [userId] = useState(state.user_id);
 
   const { register, handleSubmit } = useForm();
 
-  const [quantityPlayersPerTeam, setQuantityPlayersPerTeam] = useState(0);
+  const [quantityPlayersPerTeam, setQuantityPlayersPerTeam] = useState(5);
   const [visibleRegisterTeams, setVisibleRegisterTeams] = useState(true);
   const [visiblePlayersPerTeam, setPlayersPerTeam] = useState(false);
 
@@ -54,10 +56,11 @@ const RegisterTeams: React.FC = () => {
 
       const allIds = response.data.map((item: responseDataTeams) => item.id);
 
-      toast.success('Deu bom');
+      toast.success('Times cadastrados com sucesso!');
 
       history.push('/register-players', {
         match_id: matchId,
+        user_id: userId,
         allIds,
       });
     } catch (error) {

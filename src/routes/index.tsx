@@ -10,7 +10,6 @@ import ListMatches from '../pages/ListMatches';
 import RegisterTeams from '../pages/RegisterTeams';
 
 import Route from './Route';
-
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>

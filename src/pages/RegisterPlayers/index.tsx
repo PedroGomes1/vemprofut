@@ -8,7 +8,8 @@ import { MdDeleteForever } from 'react-icons/md';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Modal from '../../components/ModalConfirmTeams';
+import ModalConfirmTeams from '../../components/ModalConfirmTeams';
+import ModalSearchPlayers from '../../components/ModalSearchPlayers';
 import { PropsParam } from '../RegisterTeams';
 import {
   Container,
@@ -21,8 +22,11 @@ import api from '../../services/api';
 
 export interface FormDataProps {
   id: number;
-  name: string;
-  year: number;
+  players: {
+    name: string;
+    position: string;
+    year: number;
+  };
   team: {
     id: number;
     name: string;
@@ -37,9 +41,11 @@ const RegisterPlayers: React.FC = () => {
   const { state } = useLocation<PropsParam>();
 
   const [matchId] = useState(state.match_id);
+  const [userId] = useState(state.user_id);
   const [allTeamsIds] = useState(state.allIds);
   const [tableData, setTableData] = useState<FormDataProps[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenConfirmTeams, setModalOpenConfirmTeams] = useState(false);
+  const [modalOpenSearchPlayers, setModalOpenSearchPlayers] = useState(false);
   const [updateTable, setUpdateTable] = useState(true);
 
   const { register, handleSubmit } = useForm<FormDataProps>();
@@ -47,11 +53,7 @@ const RegisterPlayers: React.FC = () => {
   useEffect(() => {
     async function loadPlayers(): Promise<void> {
       if (updateTable === true) {
-        const response = await api.get('/players', {
-          params: {
-            match_id: matchId,
-          },
-        });
+        const response = await api.get(`/matches-players/${matchId}`)
 
         setTableData(response.data);
         setUpdateTable(false);
@@ -66,21 +68,28 @@ const RegisterPlayers: React.FC = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  const registerPlayersPerTeam = async (data: any): Promise<void> => {
+  const registerPlayers = async (data: any): Promise<void> => {
+
     const randomTeam = getRandom(
       [...allTeamsIds].shift() || 0,
       [...allTeamsIds].pop() || 0,
     );
+
     try {
-      await api.post('/players', {
+      const response = await api.post('/players', {
         name: data.name,
         year: data.year,
         position: data.position,
-        team_id: randomTeam,
-        match_id: matchId,
+        user_id: userId
       });
-      setUpdateTable(true);
 
+      await api.post('/matches-players', {
+        player_id: response.data.id,
+        team_id: randomTeam,
+        match_id: matchId
+      })
+
+      setUpdateTable(true);
       toast.success('Jogador cadastrado com sucesso!');
     } catch (error) {
       if (error.response.data.error.includes('O limite de jogadores do time')) {
@@ -90,6 +99,26 @@ const RegisterPlayers: React.FC = () => {
       }
     }
   };
+
+  const registerPlayersAlreadyExists = async(data: any): Promise<void> => {
+
+    const randomTeam = getRandom(
+      [...allTeamsIds].shift() || 0,
+      [...allTeamsIds].pop() || 0,
+    );
+
+    try {
+      await api.post('/matches-players', {
+        player_id: data.id,
+        team_id: randomTeam,
+        match_id: matchId
+      })
+
+      setUpdateTable(true);
+    } catch (error) {
+      toast.error('Erro ao inserir jogador!');
+    }
+  }
 
   const handleDelete = async (id: number): Promise<void> => {
     try {
@@ -121,10 +150,10 @@ const RegisterPlayers: React.FC = () => {
           <tbody>
             {tableData.map(item => (
               <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.year}</td>
+                <td>{item.players.name}</td>
+                <td>{item.players.year}</td>
                 <td>{item.team.name}</td>
-                <td>{item.position}</td>
+                <td>{item.players.position}</td>
                 <td className="delete" onClick={() => handleDelete(item.id)}>
                   <MdDeleteForever color="#ff0015" size={20} />
                 </td>
@@ -135,7 +164,7 @@ const RegisterPlayers: React.FC = () => {
 
         <WrapperForm>
           <WrapperRegisterPlayers>
-            <form onSubmit={handleSubmit(registerPlayersPerTeam)} key={1}>
+            <form onSubmit={handleSubmit(registerPlayers)} key={1}>
               <h2>Cadastro de jogadores </h2>
               <label htmlFor="name">Nome/Apelido:</label>
               <Input
@@ -164,10 +193,13 @@ const RegisterPlayers: React.FC = () => {
               </select>
 
               <Button type="submit">Inserir jogador</Button>
+              <Button type="button" onClick={() => setModalOpenSearchPlayers(true)}>
+                Selecionar jogadores
+              </Button>
               <Button
                 type="button"
                 onClick={() => {
-                  setModalOpen(true);
+                  setModalOpenConfirmTeams(true);
                 }}
               >
                 Sortear times
@@ -177,13 +209,23 @@ const RegisterPlayers: React.FC = () => {
         </WrapperForm>
       </main>
 
-      {modalOpen && (
-        <Modal
-          onClose={() => setModalOpen(false)}
+      {modalOpenConfirmTeams && (
+        <ModalConfirmTeams
+          onClose={() => setModalOpenConfirmTeams(false)}
           open={() => {}}
           matchId={matchId}
           allTeams={allTeamsIds}
           quantityTeams={allTeamsIds.length}
+        />
+      )}
+
+      {modalOpenSearchPlayers && (
+        <ModalSearchPlayers
+          onClose={() => setModalOpenSearchPlayers(false)}
+          open={() => {}}
+          userId={userId}
+          selectedPlayer={registerPlayersAlreadyExists}
+          matchId={matchId}
         />
       )}
     </Container>
