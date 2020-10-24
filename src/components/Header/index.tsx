@@ -6,7 +6,11 @@ import { Container, Options } from './styles';
 import logo from '../../assets/logofut-header.png';
 import { useAuth } from '../../hooks/auth';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  switchVisible?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ switchVisible = true }) => {
   const { signOut } = useAuth();
 
   return (
@@ -15,7 +19,10 @@ const Header: React.FC = () => {
         <img src={logo} alt="logo" />
       </Link>
 
-      <Switch />
+      {switchVisible && (
+        <Switch />
+      )}
+
       <Options>
         <button type="button" onClick={signOut}>
           <CgLogOut size="20" />
