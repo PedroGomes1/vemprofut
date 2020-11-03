@@ -49,7 +49,6 @@ export const Card = styled.div`
   }
 `;
 
-
 export const Table = styled.table`
   display: block;
 
@@ -60,7 +59,11 @@ export const Table = styled.table`
 
   text-align: center;
 
-  thead, tbody, tr, td, th   {
+  thead,
+  tbody,
+  tr,
+  td,
+  th {
     width: 20%;
   }
 

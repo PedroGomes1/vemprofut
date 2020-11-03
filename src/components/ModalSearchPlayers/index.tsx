@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MdInfoOutline } from 'react-icons/md';
 import { FiSearch } from 'react-icons/fi';
+import { useForm } from 'react-hook-form';
 import { Container, Card, Icon, Table } from './styles';
 import api from '../../services/api';
 import Input from '../Input';
-import { useForm } from 'react-hook-form';
 
 interface TableProps {
   id: number;
@@ -29,46 +29,55 @@ interface ModalProps {
   onClose: () => void;
   open: () => void;
   selectedPlayer: (item: any) => void;
-  userId: number;
   matchId: number;
 }
 
-const SearchModal: React.FC<ModalProps> = ({ onClose, open, userId, selectedPlayer, matchId }) => {
+const SearchModal: React.FC<ModalProps> = ({
+  onClose,
+  open,
+  selectedPlayer,
+  matchId,
+}) => {
   const { register } = useForm();
   const [tableData, setTableData] = useState<TableProps[]>([]);
   const [matchPlayers, setMatchPlayers] = useState<number[]>([]);
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    async function loadPlayers(): Promise<void> {
-        const response = await api.get(`players/${userId}`, {
-          params: {
-            namePlayer: searchInput
-          }
-        })
-        setTableData(response.data);
-      }
-    loadPlayers();
-  }, [userId, searchInput]);
+    async function loadMatchPlayer(): Promise<void> {
+      const response = await api.get<MatchPlayerProps[]>(
+        `/matches-players/${matchId}`,
+      );
+
+      setMatchPlayers(response.data.map(matchplayer => matchplayer.player_id));
+    }
+    loadMatchPlayer();
+  }, [matchId]);
 
   useEffect(() => {
-    async function loadMatchPlayer(): Promise<void> {
-      const response = await api.get<MatchPlayerProps[]>(`/matches-players/${matchId}`)
-
-      setMatchPlayers(response.data.map((matchplayer) => matchplayer.player_id));
+    async function loadPlayers(): Promise<void> {
+      const response = await api.get<TableProps[]>('players', {
+        params: {
+          namePlayer: searchInput,
+          is_active: 1,
+        },
+      });
+      setTableData(
+        response.data.filter(item => !matchPlayers.includes(item.id)),
+      );
     }
+    loadPlayers();
+  }, [searchInput, matchPlayers]);
 
-    loadMatchPlayer()
-  },[matchId])
+  const checkAvailablePlayers = useCallback(
+    (id: number): void => {
+      const availablePlayers = tableData.filter(item => item.id !== id);
+      setTableData(availablePlayers);
+      setMatchPlayers([...matchPlayers, id]);
+    },
 
-  //Falta resolver essa parte do use memo e use callback
-
-  const checkAvailablePlayers = useCallback(() => {
-    const availablePlayers = tableData.filter((item) => !matchPlayers.includes(item.id))
-
-    setTableData(availablePlayers)
-  },[matchPlayers, tableData])
-
+    [tableData, matchPlayers],
+  );
 
   return (
     open && (
@@ -85,7 +94,7 @@ const SearchModal: React.FC<ModalProps> = ({ onClose, open, userId, selectedPlay
             icon={FiSearch}
             placeholder="Busque por nome do jogador"
             register={register}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={e => setSearchInput(e.target.value)}
             required
           />
 
@@ -99,10 +108,13 @@ const SearchModal: React.FC<ModalProps> = ({ onClose, open, userId, selectedPlay
             </thead>
             <tbody>
               {tableData.map(item => (
-                <tr key={item.id} onClick={() => {
-                  selectedPlayer(item);
-                  checkAvailablePlayers()
-                }}>
+                <tr
+                  key={item.id}
+                  onClick={() => {
+                    selectedPlayer(item);
+                    checkAvailablePlayers(item.id);
+                  }}
+                >
                   <td>{item.name}</td>
                   <td>{item.year}</td>
                   <td>{item.position}</td>
