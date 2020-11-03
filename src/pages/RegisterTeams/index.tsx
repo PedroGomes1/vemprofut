@@ -47,6 +47,11 @@ const RegisterTeams: React.FC = () => {
   const handleRegisterTeams = async (data: formDataProps): Promise<void> => {
     const teams = data.name?.split(',').map((item: string) => item.trim());
 
+    if (teams && !(teams.length % 2 === 0)) {
+      toast.error('Digite quantidades pares de times');
+      return;
+    }
+
     try {
       const response = await api.post('/teams', {
         teams,
@@ -98,7 +103,7 @@ const RegisterTeams: React.FC = () => {
         <WrapperRegisterTeams disabled={visibleRegisterTeams}>
           <form onSubmit={handleSubmit(handleRegisterTeams)}>
             <label htmlFor="name">Digite os nomes desejados:</label>
-            <i>(Ex: Corinthians, São Paulo, Internacional)</i>
+            <i>(Ex: Corinthians, São Paulo, Internacional, Flamengo)</i>
             <Input
               id="name"
               name="name"

@@ -53,7 +53,7 @@ const RegisterPlayers: React.FC = () => {
   useEffect(() => {
     async function loadPlayers(): Promise<void> {
       if (updateTable === true) {
-        const response = await api.get(`/matches-players/${matchId}`)
+        const response = await api.get(`/matches-players/${matchId}`);
 
         setTableData(response.data);
         setUpdateTable(false);
@@ -63,13 +63,12 @@ const RegisterPlayers: React.FC = () => {
   }, [updateTable, matchId]);
 
   const getRandom = (min: number, max: number): number => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    const minimo = Math.ceil(min);
+    const maximo = Math.floor(max);
+    return Math.floor(Math.random() * (maximo - minimo + 1)) + minimo;
   };
 
   const registerPlayers = async (data: any): Promise<void> => {
-
     const randomTeam = getRandom(
       [...allTeamsIds].shift() || 0,
       [...allTeamsIds].pop() || 0,
@@ -80,14 +79,14 @@ const RegisterPlayers: React.FC = () => {
         name: data.name,
         year: data.year,
         position: data.position,
-        user_id: userId
+        user_id: userId,
       });
 
       await api.post('/matches-players', {
         player_id: response.data.id,
         team_id: randomTeam,
-        match_id: matchId
-      })
+        match_id: matchId,
+      });
 
       setUpdateTable(true);
       toast.success('Jogador cadastrado com sucesso!');
@@ -100,8 +99,7 @@ const RegisterPlayers: React.FC = () => {
     }
   };
 
-  const registerPlayersAlreadyExists = async(data: any): Promise<void> => {
-
+  const registerPlayersAlreadyExists = async (data: any): Promise<void> => {
     const randomTeam = getRandom(
       [...allTeamsIds].shift() || 0,
       [...allTeamsIds].pop() || 0,
@@ -111,18 +109,18 @@ const RegisterPlayers: React.FC = () => {
       await api.post('/matches-players', {
         player_id: data.id,
         team_id: randomTeam,
-        match_id: matchId
-      })
+        match_id: matchId,
+      });
 
       setUpdateTable(true);
     } catch (error) {
       toast.error('Erro ao inserir jogador!');
     }
-  }
+  };
 
   const handleDelete = async (id: number): Promise<void> => {
     try {
-      await api.delete(`/players/${id}`);
+      await api.delete(`/matches-players/${id}`);
 
       toast.success('Jogador deletado com sucesso!');
 
@@ -193,7 +191,10 @@ const RegisterPlayers: React.FC = () => {
               </select>
 
               <Button type="submit">Inserir jogador</Button>
-              <Button type="button" onClick={() => setModalOpenSearchPlayers(true)}>
+              <Button
+                type="button"
+                onClick={() => setModalOpenSearchPlayers(true)}
+              >
                 Selecionar jogadores
               </Button>
               <Button
@@ -223,7 +224,6 @@ const RegisterPlayers: React.FC = () => {
         <ModalSearchPlayers
           onClose={() => setModalOpenSearchPlayers(false)}
           open={() => {}}
-          userId={userId}
           selectedPlayer={registerPlayersAlreadyExists}
           matchId={matchId}
         />
