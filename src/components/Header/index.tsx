@@ -19,9 +19,7 @@ const Header: React.FC<HeaderProps> = ({ switchVisible = true }) => {
         <img src={logo} alt="logo" />
       </Link>
 
-      {switchVisible && (
-        <Switch />
-      )}
+      {switchVisible && <Switch />}
 
       <Options>
         <button type="button" onClick={signOut}>

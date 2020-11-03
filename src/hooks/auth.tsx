@@ -33,7 +33,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
 
     return {} as AuthState;
-  }); // No primeiro momento é nulo, por isso mando o as AuthContextData
+  });
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('login', {

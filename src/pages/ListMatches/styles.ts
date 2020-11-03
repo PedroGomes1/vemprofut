@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 import fundo from '../../assets/gramado2.png';
 
-interface ContentProps {
-  hasMatches: number;
-}
-
-export const Content = styled.div<ContentProps>`
+export const Content = styled.div`
   background-image: url(${fundo});
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  height: ${({ hasMatches }) => hasMatches > 3 ? '100%' : '100vh'};
+  height: 100%;
+  min-height: 100vh;
   padding: 0 3rem;
-`
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -20,7 +17,6 @@ export const Container = styled.div`
   flex-direction: column;
   max-width: 125rem;
   margin: 0 auto;
-
 
   padding-bottom: 1.5rem;
   li {
@@ -68,32 +64,28 @@ export const Container = styled.div`
     }
   }
 
-  @media(max-width: 640px) {
+  @media (max-width: 640px) {
     text-align: center;
   }
 
-  @media(max-width: 450px) {
+  @media (max-width: 450px) {
     li {
-
       div {
         margin: 0 3rem;
 
         h3 {
-        font-size: 2rem;
-       }
+          font-size: 2rem;
+        }
       }
     }
   }
 
-  @media(max-width: 390px) {
-
+  @media (max-width: 390px) {
     h1 {
       font-size: 2.8rem;
     }
 
-
     li {
-
       div {
         margin: 0 1rem;
       }
