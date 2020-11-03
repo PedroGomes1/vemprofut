@@ -8,8 +8,10 @@ import RegisterPlayers from '../pages/RegisterPlayers';
 import Matches from '../pages/Matches';
 import ListMatches from '../pages/ListMatches';
 import RegisterTeams from '../pages/RegisterTeams';
+import PlayerStatus from '../pages/PlayerStatus';
 
 import Route from './Route';
+
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
@@ -25,6 +27,7 @@ const Routes: React.FC = () => (
       <Route path="/list-matches" exact isPrivate component={ListMatches} />
       <Route path="/register-teams" exact isPrivate component={RegisterTeams} />
       <Route path="/matches" exact isPrivate component={Matches} />
+      <Route path="/status-players" exact isPrivate component={PlayerStatus} />
     </Switch>
   </BrowserRouter>
 );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BiAddToQueue } from 'react-icons/bi';
-import { BsListCheck } from 'react-icons/bs';
+import { BsListCheck, BsToggles } from 'react-icons/bs';
 import Button from '../../components/Button';
 import ModalRegisterMatch from '../../components/ModalRegisterMatch';
 import Header from '../../components/Header';
@@ -28,6 +28,11 @@ const Home: React.FC = () => {
             <Button onClick={() => history.push('/list-matches')}>
               <BsListCheck size={40} />
               Listar peladas
+            </Button>
+
+            <Button onClick={() => history.push('/status-players')}>
+              <BsToggles size={40} />
+              Status dos jogadores
             </Button>
           </WrapperButtons>
 

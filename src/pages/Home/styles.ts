@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import fundo from '../../assets/gramado2.png';
 
 export const Content = styled.div`
-background-image: url(${fundo});
-background-position: center;
-background-size: cover;
-height: 100vh;
-padding: 0 3rem;
-`
+  background-image: url(${fundo});
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 3rem;
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -17,7 +18,6 @@ export const Container = styled.div`
 
   margin: 0 auto;
   margin-top: 8rem;
-
 
   h1 {
     max-width: 50rem;
