@@ -9,22 +9,39 @@ export const Content = styled.div`
   height: 100%;
   min-height: 100vh;
   padding: 0 3rem;
+
+  h1 {
+    text-align: center;
+  }
+
+  @media (max-width: 495px) {
+    h1 {
+      font-size: 2.4rem;
+      margin-top: 2rem;
+    }
+  }
 `;
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  max-width: 125rem;
 
-  margin: 0 auto;
-  margin-top: 8rem;
+  max-width: 125rem;
+  width: 100%;
+
+  margin: 3rem auto;
+
+  @media (max-width: 495px) {
+    width: 100%;
+    overflow-y: scroll;
+  }
 `;
 
 export const Table = styled.table`
   width: 100%;
+  margin: 0 auto;
   border-collapse: collapse;
-  text-align: center;
   background: #fff;
 
   thead,
@@ -32,7 +49,7 @@ export const Table = styled.table`
   tr,
   td,
   th {
-    width: 20%;
+    width: 25%;
   }
 
   td,

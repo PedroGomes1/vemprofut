@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Switch from 'react-switch';
 import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
 import Header from '../../components/Header';
 import api from '../../services/api';
 import { Container, Content, Table } from './styles';
@@ -50,9 +49,8 @@ const PlayerStatus: React.FC = () => {
     <>
       <Content>
         <Header switchVisible={false} />
+        <h1>Listagem de todos os jogadores cadastrados</h1>
         <Container>
-          <h1>Listagem de todos os jogadores cadastrados</h1>
-
           <Table>
             <thead>
               <tr>
@@ -71,7 +69,7 @@ const PlayerStatus: React.FC = () => {
                   <td>
                     <Switch
                       onChange={() => handleUpdated(item.id, item.is_active)}
-                      handleDiameter={30}
+                      handleDiameter={31}
                       height={30}
                       width={65}
                       offColor="#ff1a1a"
