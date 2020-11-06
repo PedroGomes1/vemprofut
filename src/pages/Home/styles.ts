@@ -42,4 +42,11 @@ export const WrapperButtons = styled.div`
     height: 13rem;
     margin-right: 1rem;
   }
+
+  @media (max-width: 350px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;

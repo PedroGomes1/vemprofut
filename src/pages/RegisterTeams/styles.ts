@@ -17,6 +17,18 @@ export const Container = styled.div`
 
   max-width: 125rem;
   margin: auto;
+
+  padding: 0 3rem;
+
+  header {
+    width: 100%;
+  }
+
+  @media (max-width: 400px) {
+    h2 {
+      margin-top: 3rem;
+    }
+  }
 `;
 
 export const WrapperPlayersPerTeam = styled.div<PropsPlayersPerTeam>`
@@ -27,7 +39,7 @@ export const WrapperPlayersPerTeam = styled.div<PropsPlayersPerTeam>`
   margin: 2rem auto 2rem;
 
   border-radius: 0.5rem;
-  padding: 2rem;
+  padding: 1rem;
   border: 0.17rem solid ${({ theme }) => theme.colors.quaternary};
 
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'auto')};
@@ -50,7 +62,7 @@ export const WrapperPlayersPerTeam = styled.div<PropsPlayersPerTeam>`
 
   button {
     margin: 2rem auto 0;
-    width: 50%;
+    width: 45%;
     height: 4rem;
   }
 `;

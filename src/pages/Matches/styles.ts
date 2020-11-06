@@ -5,10 +5,21 @@ export const Container = styled.div`
   margin: 0 auto;
   text-align: center;
 
+  padding: 0 3rem;
+
   main {
     display: flex;
     align-items: center;
     margin-top: 2rem;
+
+    @media (max-width: 670px) {
+      display: flex;
+      flex-direction: column;
+
+      > div {
+        margin: 3rem auto;
+      }
+    }
   }
 `;
 export const Table = styled.table`
@@ -27,6 +38,12 @@ export const WrapperList = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-left: 5rem;
+
+  @media (max-width: 385px) {
+    strong {
+      font-size: 1.8rem;
+    }
+  }
 
   li {
     display: grid;

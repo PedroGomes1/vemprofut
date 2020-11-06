@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface HeaderProps {
+  hasSwitch: boolean;
+}
+
+export const Container = styled.header<HeaderProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,12 +21,21 @@ export const Container = styled.div`
     width: 2rem;
     height: 2rem;
   }
+
+  @media (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div:first-child {
+      margin-bottom: 2rem;
+    }
+  }
 `;
 
 export const Options = styled.div`
   display: flex;
   align-items: center;
-
   button {
     display: flex;
     align-items: center;

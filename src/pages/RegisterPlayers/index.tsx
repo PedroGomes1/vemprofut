@@ -13,6 +13,7 @@ import ModalSearchPlayers from '../../components/ModalSearchPlayers';
 import { PropsParam } from '../RegisterTeams';
 import {
   Container,
+  WrapperTable,
   Table,
   WrapperForm,
   WrapperRegisterPlayers,
@@ -135,30 +136,32 @@ const RegisterPlayers: React.FC = () => {
       <Header />
 
       <main>
-        <Table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Idade</th>
-              <th>Time</th>
-              <th>Posição</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map(item => (
-              <tr key={item.id}>
-                <td>{item.players.name}</td>
-                <td>{item.players.year}</td>
-                <td>{item.team.name}</td>
-                <td>{item.players.position}</td>
-                <td className="delete" onClick={() => handleDelete(item.id)}>
-                  <MdDeleteForever color="#ff0015" size={20} />
-                </td>
+        <WrapperTable>
+          <Table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Time</th>
+                <th>Posição</th>
+                <th>Excluir</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {tableData.map(item => (
+                <tr key={item.id}>
+                  <td>{item.players.name}</td>
+                  <td>{item.players.year}</td>
+                  <td>{item.team.name}</td>
+                  <td>{item.players.position}</td>
+                  <td className="delete" onClick={() => handleDelete(item.id)}>
+                    <MdDeleteForever color="#ff0015" size={20} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </WrapperTable>
 
         <WrapperForm>
           <WrapperRegisterPlayers>

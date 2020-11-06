@@ -75,8 +75,8 @@ const RegisterTeams: React.FC = () => {
 
   return (
     <>
-      <Header />
       <Container>
+        <Header />
         <h2>Registre o modo e os nomes dos times participantes abaixo.</h2>
 
         <WrapperPlayersPerTeam disabled={visiblePlayersPerTeam}>

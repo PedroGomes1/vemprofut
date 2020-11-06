@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ switchVisible = true }) => {
   const { signOut } = useAuth();
 
   return (
-    <Container>
+    <Container hasSwitch={switchVisible}>
       <Link to="/home">
         <img src={logo} alt="logo" />
       </Link>
