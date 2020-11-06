@@ -10,21 +10,52 @@ export const Container = styled.div`
   main {
     display: flex;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 
-    @media (max-width: 670px) {
+    @media (max-width: 715px) {
+      display: flex;
+      flex-direction: column;
+      > div {
+        margin: 3rem 0;
+      }
+    }
+
+    @media (max-width: 398px) {
       display: flex;
       flex-direction: column;
 
       > div {
-        margin: 3rem auto;
+        margin-bottom: 1rem;
       }
     }
   }
+
+  @media (max-width: 398px) {
+    h1 {
+      font-size: 2.4rem;
+      margin-top: 2rem;
+    }
+  }
 `;
+
+export const WrapperTable = styled.div`
+  width: 60%;
+  margin-bottom: 3rem;
+
+  @media (max-width: 715px) {
+    width: 100%;
+  }
+
+  @media (max-width: 398px) {
+    overflow-y: scroll;
+  }
+`;
+
 export const Table = styled.table`
-  width: 50%;
+  width: 100%;
+  margin: 0 auto;
   border-collapse: collapse;
+
   td,
   th {
     text-align: center;
