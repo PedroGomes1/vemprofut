@@ -60,7 +60,7 @@ export const Container = styled.div<IContainerProps>`
     ${({ hasPlaceholder }) =>
       !hasPlaceholder &&
       css`
-        width: 95%;
+        width: 85%;
         left: 2rem;
       `}
   }
