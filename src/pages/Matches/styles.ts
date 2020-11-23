@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   > button {
     margin: 0 auto 2rem;
-    width: 30%;
+    width: 50%;
   }
 
   main {
