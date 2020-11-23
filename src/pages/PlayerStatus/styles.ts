@@ -30,7 +30,7 @@ export const Container = styled.div`
   max-width: 125rem;
   width: 100%;
 
-  margin: 3rem auto;
+  margin: 3rem auto 0;
 
   @media (max-width: 495px) {
     width: 100%;

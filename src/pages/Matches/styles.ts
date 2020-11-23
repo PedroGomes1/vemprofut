@@ -7,6 +7,11 @@ export const Container = styled.div`
 
   padding: 0 3rem;
 
+  > button {
+    margin: 0 auto 2rem;
+    width: 30%;
+  }
+
   main {
     display: flex;
     align-items: center;
@@ -63,6 +68,7 @@ export const Table = styled.table`
     border: 1px solid ${({ theme }) => theme.colors.quaternary};
   }
 `;
+
 export const WrapperList = styled.div`
   display: flex;
   flex: 1;
